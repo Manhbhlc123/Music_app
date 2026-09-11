@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: music-app
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: "music_app"
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+jwt:
+  signerKey: ">Ui+b:MUt3jP-t>I^{LP)HT*pdqM(GRQX$L7CEAvvb2k{2%wiP,]R.>bjI0:L2viUJ+^+[XM)uY_Xv5_"
+  valid-duration: 3600 #in second
+  refreshable-duration: 360000 #in seconds
+
+server:
+  port: 8080
+  address: 0.0.0.0
+
+logging:
+  level:
+    org.springframework.transaction: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
