@@ -1,0 +1,47 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email Address",
+    "password": "Password",
+    "login_button": "Login",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot Password?",
+    "no_account": "Don't have an account?",
+    "signup": "Sign Up",
+    "error": "Invalid email or password",
+    "loginFail": "Login failed. Please check your credentials."
+  },
+
+  "signup": {
+    "title": "Sign Up",
+    "phone_label": "Phone",
+    "phone_hint": "Enter phone",
+    "username_hint": "Enter username",
+    "username_label": "Username",
+    "email_hint": "Enter email",
+    "email_label": "Email",
+    "password_hint": "Enter password",
+    "password_label": "Password",
+    "confirm_password_hint": "Confirm password",
+    "confirm_password_label": "Confirm Password",
+    "birthday_hint": "Select birth year",
+    "country_hint": "Select country",
+    "language_hint": "Select language",
+    "avatar": "Choose avatar:",
+    "signup_button": "Sign Up",
+    "signup_button_admin": "Add",
+
+    "success": "you registed success",
+    "country": {
+      "vietnam": "Vietnam",
+      "usa": "United States",
+      "japan": "Japan",
+      "korea": "Korea"
+    },
+    "language": {
+      "vi": "Vietnamese",
+      "en": "English"
+    }
+  }
+
+}

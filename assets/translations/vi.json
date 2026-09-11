@@ -1,0 +1,43 @@
+{
+  "login": {
+    "title": "Đăng nhập",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "login_button": "Đăng nhập",
+    "remember_me": "Ghi nhớ tài khoản",
+    "forgot_password": "Quên mật khẩu?",
+    "no_account": "Bạn chưa có tài khoản?",
+    "signup": "Đăng ký",
+    "error": "Email hoặc mật khẩu không hợp lệ",
+    "loginFail": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập."
+  },
+  "signup": {
+    "title": "Đăng ký",
+    "phone_label": "Số điện thoại",
+    "phone_hint": "Nhập số điện thoại",
+    "username_hint": "Nhập tên người dùng",
+    "username_label": "Tên người dùng",
+    "email_hint": "Nhập email",
+    "email_label": "Email",
+    "password_hint": "Nhập mật khẩu",
+    "password_label": "Mật khẩu",
+    "confirm_password_hint": "Nhập lại mật khẩu",
+    "confirm_password_label": "Xác nhận mật khẩu",
+    "birthday_hint": "Chọn năm sinh",
+    "country_hint": "Chọn đất nước",
+    "language_hint": "Chọn ngôn ngữ",
+    "avatar": "Chọn ảnh đại diện:",
+    "signup_button": "Đăng ký",
+    "success": "Bạn đã đăng ký thành công",
+    "country": {
+      "vietnam": "Việt Nam",
+      "usa": "Mỹ",
+      "japan": "Nhật Bản",
+      "korea": "Hàn Quốc"
+    },
+    "language": {
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh"
+    }
+  }
+}
