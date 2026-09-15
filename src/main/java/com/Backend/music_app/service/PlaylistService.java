@@ -120,7 +120,7 @@ public class PlaylistService {
     }
 
     @Transactional
-    public List<PlaylistItemResponse> getPlaylistHome(){
+    public List<PlaylistItemResponse> getPlaylistHome() {
         List<Playlist> playlists = playlistRepisitory.findAllByIsSystem(true);
         return playlists.stream().map(playlistMapper::toPlaylistItemResponse).toList();
     }
@@ -152,9 +152,13 @@ public class PlaylistService {
     }
 
 
-    public long playlistCount()
-    {
+    public long playlistCount() {
         return playlistRepisitory.count();
     }
 
+
+    @PreAuthorize("hasAuthority('Role_ADMIN')")
+    public List<PlaylistItemResponse> getAllPlaylist() {
+        return playlistRepisitory.findAll().stream().map(playlistMapper::toPlaylistItemResponse).toList();
+    }
 }

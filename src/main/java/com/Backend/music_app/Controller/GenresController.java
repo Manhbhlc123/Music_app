@@ -23,14 +23,14 @@ public class GenresController {
     GenresService genresService;
 
     @PostMapping("/create")
-    ApiResponse<GenresItemResponse> createGenres(@RequestBody @Valid GenresCreateRequest request)
+    ApiResponse<GenresResponse> createGenres(@RequestBody @Valid GenresCreateRequest request)
     {
-        return ApiResponse.<GenresItemResponse>builder().code(201).result(genresService.createGenres(request)).build();
+        return ApiResponse.<GenresResponse>builder().code(201).result(genresService.createGenres(request)).build();
     }
 
     @GetMapping
-    ApiResponse<List<GenresItemResponse>> getGenres()
+    ApiResponse<List<GenresResponse>> getGenres()
     {
-        return ApiResponse.<List<GenresItemResponse>>builder().code(200).result(genresService.getAllGenres()).build();
+        return ApiResponse.<List<GenresResponse>>builder().code(200).result(genresService.getAllGenres()).build();
     }
 }

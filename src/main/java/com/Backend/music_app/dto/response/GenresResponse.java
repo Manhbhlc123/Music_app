@@ -1,7 +1,10 @@
 package com.Backend.music_app.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.UUID;
 
 @Builder
 @Data
@@ -9,6 +12,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenresResponse {
+    @JsonProperty()
+    UUID id;
     String name;
     String description;
     String coverUrl;

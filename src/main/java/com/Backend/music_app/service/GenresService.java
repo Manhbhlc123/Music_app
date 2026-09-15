@@ -1,6 +1,7 @@
 package com.Backend.music_app.service;
 
 import com.Backend.music_app.dto.request.GenresCreateRequest;
+import com.Backend.music_app.dto.response.GenresResponse;
 import com.Backend.music_app.dto.response.Item.GenresItemResponse;
 import com.Backend.music_app.entity.Genres;
 import com.Backend.music_app.exception.AppException;
@@ -28,7 +29,7 @@ public class GenresService {
 
     @Transactional
     @PreAuthorize("hasAuthority('Role_ADMIN')")
-    public GenresItemResponse createGenres(GenresCreateRequest request) {
+    public GenresResponse createGenres(GenresCreateRequest request) {
         // Kiểm tra xem thể loại đã tồn tại chưa
         if (genresRepository.existsGenresByName(request.getName())) {
             throw new AppException(ErrorCode.GENRES_EXISTED);
@@ -38,13 +39,13 @@ public class GenresService {
         Genres genres = genresMapper.toGenres(request);
 
         // Lưu vào DB và trả về Response DTO
-        return genresMapper.toGenresItemResponse(genresRepository.save(genres));
+        return genresMapper.toGenresResponse(genresRepository.save(genres));
     }
 
-    public List<GenresItemResponse> getAllGenres() {
+    public List<GenresResponse> getAllGenres() {
         return genresRepository.findAll()
                 .stream()
-                .map(genresMapper::toGenresItemResponse)
+                .map(genresMapper::toGenresResponse)
                 .toList();
     }
 }

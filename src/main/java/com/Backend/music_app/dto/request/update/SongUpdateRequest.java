@@ -23,10 +23,10 @@ public class SongUpdateRequest {
     @JsonProperty("artistId")
     UUID artistId;
 
-    @JsonProperty("albumId")
+    @JsonProperty("album_id")
     UUID albumId;
 
-    @JsonProperty("genreId")
+    @JsonProperty("genre_id")
     UUID genreId;
 
     @Min(value = 0, message = "DURATION_MUST_BE_POSITIVE")

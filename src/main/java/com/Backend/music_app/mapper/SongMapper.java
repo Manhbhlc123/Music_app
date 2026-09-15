@@ -12,6 +12,8 @@ public interface SongMapper {
 //    void updateUser(@MappingTarget User user, UserUpdateRequest request);
     @Mapping(source = "artist.name", target = "artistName")
     @Mapping(source = "artist.id", target = "artistId")
+    @Mapping(source = "album.id", target = "albumId")
+    @Mapping(source = "genre.id", target = "genreId")
     @Mapping(source = "playCount", target = "playCount", defaultValue = "0L")
     SongItemResponse toSongItemResponse(Song song);
 

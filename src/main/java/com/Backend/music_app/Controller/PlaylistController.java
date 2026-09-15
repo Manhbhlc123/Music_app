@@ -83,4 +83,9 @@ public class PlaylistController {
     public ApiResponse<Long> count() {
         return ApiResponse.<Long>builder().code(200).result(playlistService.playlistCount()).build();
     }
+
+    @GetMapping
+    public ApiResponse<List<PlaylistItemResponse>> getAllPlaylists() {
+        return ApiResponse.<List<PlaylistItemResponse>>builder().code(200).result(playlistService.getAllPlaylist()).build();
+    }
 }

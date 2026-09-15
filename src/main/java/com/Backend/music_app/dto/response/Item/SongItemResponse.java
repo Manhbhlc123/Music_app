@@ -1,6 +1,7 @@
 package com.Backend.music_app.dto.response.Item;
 
 import com.Backend.music_app.entity.Artist;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,6 +23,8 @@ public class SongItemResponse {
     UUID artistId;
     String artistName;
     Long playCount;
+    UUID albumId;
+    UUID genreId;
 
 }
 
