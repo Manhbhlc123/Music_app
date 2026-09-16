@@ -1,6 +1,7 @@
 package com.Backend.music_app.service;
 
 import com.Backend.music_app.dto.request.PlaylistCreateRequest;
+import com.Backend.music_app.dto.request.update.PlaylistUpdateRequest;
 import com.Backend.music_app.dto.response.Item.PlaylistItemResponse;
 import com.Backend.music_app.dto.response.Item.SongItemResponse;
 import com.Backend.music_app.dto.response.PlaylistResponse;
@@ -87,6 +88,7 @@ public class PlaylistService {
         Playlist newPlaylist = playlistMapper.toPlaylist(request);
 
         newPlaylist.setUser(currentUser);
+        newPlaylist.setSystem(false);
 
         Playlist savedPlaylist = playlistRepisitory.save(newPlaylist);
 
@@ -106,6 +108,7 @@ public class PlaylistService {
         newPlaylist.setUser(null);
 
         newPlaylist.setSystem(true);
+        newPlaylist.setPublic(true);
 
         Playlist savedPlaylist = playlistRepisitory.save(newPlaylist);
 
@@ -160,5 +163,14 @@ public class PlaylistService {
     @PreAuthorize("hasAuthority('Role_ADMIN')")
     public List<PlaylistItemResponse> getAllPlaylist() {
         return playlistRepisitory.findAll().stream().map(playlistMapper::toPlaylistItemResponse).toList();
+    }
+
+    @PreAuthorize("hasAuthority('Role_ADMIN')")
+    public PlaylistItemResponse updatePlaylist(UUID playlistId, PlaylistUpdateRequest request) {
+        Playlist playlist = playlistRepisitory.findById(playlistId).orElseThrow(() -> new AppException(ErrorCode.PLAYLIST_NOT_FOUND));
+
+        playlistMapper.updatePlaylist(playlist, request);
+
+        return playlistMapper.toPlaylistItemResponse(playlistRepisitory.save(playlist));
     }
 }

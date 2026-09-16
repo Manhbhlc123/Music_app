@@ -1,6 +1,7 @@
 package com.Backend.music_app.Controller;
 
 import com.Backend.music_app.dto.request.PlaylistCreateRequest;
+import com.Backend.music_app.dto.request.update.PlaylistUpdateRequest;
 import com.Backend.music_app.dto.response.ApiResponse;
 import com.Backend.music_app.dto.response.Item.PlaylistItemResponse;
 import com.Backend.music_app.dto.response.Item.SongItemResponse;
@@ -61,22 +62,21 @@ public class PlaylistController {
 
         return ApiResponse.<String>builder().code(200).message("Song successfully added to the my playlist.").build();
     }
-
     @GetMapping("/getPlaylistHome")
     public ApiResponse<List<PlaylistItemResponse>> getPlaylistHome() {
         return ApiResponse.<List<PlaylistItemResponse>>builder().code(200).result(playlistService.getPlaylistHome()).build();
     }
 
-    @DeleteMapping("/{playlistId}")
-    public ApiResponse<String> deletePlaylistByTitle(@PathVariable UUID playlistId) {
-        playlistService.deletePlaylist(playlistId);
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deletePlaylistByTitle(@PathVariable UUID id) {
+        playlistService.deletePlaylist(id);
 
         return ApiResponse.<String>builder().code(200).message("delete complete").build();
     }
 
-    @GetMapping("/{playlistId}/songs")
-    public ApiResponse<List<SongItemResponse>> getSongByPlaylistId(@PathVariable UUID playlistId) {
-        return ApiResponse.<List<SongItemResponse>>builder().code(200).result(playlistService.getSongOfPlaylist(playlistId)).build();
+    @GetMapping("/{id}/songs")
+    public ApiResponse<List<SongItemResponse>> getSongByPlaylistId(@PathVariable UUID id) {
+        return ApiResponse.<List<SongItemResponse>>builder().code(200).result(playlistService.getSongOfPlaylist(id)).build();
     }
 
     @GetMapping("/count")
@@ -87,5 +87,10 @@ public class PlaylistController {
     @GetMapping
     public ApiResponse<List<PlaylistItemResponse>> getAllPlaylists() {
         return ApiResponse.<List<PlaylistItemResponse>>builder().code(200).result(playlistService.getAllPlaylist()).build();
+    }
+
+    @PutMapping("/{id}")
+    public ApiResponse<PlaylistItemResponse> updatePlaylist(@RequestBody @Valid PlaylistUpdateRequest request, @PathVariable UUID id) {
+        return ApiResponse.<PlaylistItemResponse>builder().code(201).result(playlistService.updatePlaylist(id, request)).build();
     }
 }

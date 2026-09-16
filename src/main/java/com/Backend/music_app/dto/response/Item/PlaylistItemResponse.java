@@ -1,5 +1,6 @@
 package com.Backend.music_app.dto.response.Item;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class PlaylistItemResponse {
     String title;
     String coverUrl;
     Integer totalSong;
+    Boolean isPublic;
 }

@@ -1,17 +1,16 @@
-package com.Backend.music_app.dto.response.Item;
+package com.Backend.music_app.dto.request.update;
 
+import jakarta.persistence.Column;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class    AlbumItemResponse {
-    UUID id;
+public class PlaylistUpdateRequest {
     String title;
     String coverUrl;
-    String description;
+    Boolean isPublic;
 }
