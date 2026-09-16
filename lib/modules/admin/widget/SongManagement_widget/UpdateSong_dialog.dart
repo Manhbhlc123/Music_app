@@ -18,8 +18,8 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
   late TextEditingController audioUrlHqController;
   late TextEditingController coverUrlController;
   late TextEditingController lyricsController;
-  // late TextEditingController releaseDateController;
-  // late TextEditingController searchKeywordsController;
+  late TextEditingController albumIdController;
+  late TextEditingController genreIdController;
 
   String? artistId;
   String? albumId;
@@ -34,27 +34,23 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
     final song = widget.song;
 
     titleController = TextEditingController(text: song.title);
-
     durationController = TextEditingController(text: song.duration.toString());
-
     audioUrlNormalController = TextEditingController(
       text: song.audioUrlNormal ?? '',
     );
 
     audioUrlHqController = TextEditingController(text: song.audioUrlHq ?? '');
-
     coverUrlController = TextEditingController(text: song.coverUrl ?? '');
-
     lyricsController = TextEditingController(text: song.lyricsPlain ?? '');
+    albumIdController = TextEditingController(text: song.albumId ?? '');
+    genreIdController = TextEditingController(text: song.genreId ?? '');
 
     artistId = song.artistId;
+    albumId = song.albumId;
+    genreId = song.genreId;
   }
 
-  String _formatDate(DateTime date) {
-    return '${date.year.toString().padLeft(4, '0')}-'
-        '${date.month.toString().padLeft(2, '0')}-'
-        '${date.day.toString().padLeft(2, '0')}';
-  }
+
 
   @override
   void dispose() {
@@ -64,8 +60,8 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
     audioUrlHqController.dispose();
     coverUrlController.dispose();
     lyricsController.dispose();
-    // releaseDateController.dispose();
-    // searchKeywordsController.dispose();
+    albumIdController.dispose();
+    genreIdController.dispose();
 
     super.dispose();
   }
@@ -76,37 +72,26 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
-
-    // if (picked != null) {
-    //   setState(() {
-    //     releaseDateController.text = _formatDate(picked);
-    //   });
-    // }
   }
 
   void updateSong() {
     final duration = int.tryParse(durationController.text.trim());
-
-    DateTime? releaseDate;
-
-    // if (releaseDateController.text.trim().isNotEmpty) {
-    //   releaseDate = DateTime.tryParse(releaseDateController.text.trim());
-    // }
 
     if (duration == null && durationController.text.trim().isNotEmpty) {
       Get.snackbar("Error", "Duration must be a number");
       return;
     }
 
-    // if (releaseDateController.text.trim().isNotEmpty && releaseDate == null) {
-    //   Get.snackbar("Error", "Release date must have format YYYY-MM-DD");
-    //   return;
-    // }
-
     final updatedSong = widget.song.copyWith(
       title: titleController.text.trim(),
 
       artistId: artistId,
+      albumId: albumIdController.text.trim().isEmpty
+          ? null
+          : albumIdController.text.trim(),
+      genreId: genreIdController.text.trim().isEmpty
+          ? null
+          : genreIdController.text.trim(),
 
       duration: duration,
 
@@ -160,22 +145,16 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
 
               // ALBUM ID
               TextField(
-                controller: TextEditingController(text: albumId ?? ''),
+                controller: albumIdController,
                 decoration: inputDecoration("Album ID"),
-                onChanged: (value) {
-                  albumId = value.trim().isEmpty ? null : value.trim();
-                },
               ),
 
               const SizedBox(height: 12),
 
               // GENRE ID
               TextField(
-                controller: TextEditingController(text: genreId ?? ''),
+                controller: genreIdController,
                 decoration: inputDecoration("Genre ID"),
-                onChanged: (value) {
-                  genreId = value.trim().isEmpty ? null : value.trim();
-                },
               ),
 
               const SizedBox(height: 12),
@@ -211,8 +190,6 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
                 decoration: inputDecoration("Cover URL"),
               ),
 
-              const SizedBox(height: 12),
-
               // RELEASE DATE
               // TextField(
               //   controller: releaseDateController,
@@ -225,14 +202,11 @@ class _UpdateSongDialogState extends State<UpdateSongDialog> {
               //   ),
               // ),
 
-              const SizedBox(height: 12),
-
               // SEARCH KEYWORDS
               // TextField(
               //   controller: searchKeywordsController,
               //   decoration: inputDecoration("Search Keywords"),
               // ),
-
               const SizedBox(height: 12),
 
               // LYRICS

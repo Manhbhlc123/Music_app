@@ -23,6 +23,9 @@ abstract class Routes {
   static const albumManagement = "/albumManagement";
   static const playlistManagement = "/playlistManagement";
   static const createUserFromAdminPage = "/createUserByAdmin";
+  static const createSongFromAdminPage = "/createSongByAdmin";
+  static const createAlbumFromAdminPage = "/createAlbumByAdmin";
+  static const createPlaylistFromAdminPage = "/createPlaylistByAdmin";
 }
 
 

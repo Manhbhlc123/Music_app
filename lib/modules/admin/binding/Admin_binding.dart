@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sq_mp3/data/provider/Album_api_provider.dart';
+import 'package:sq_mp3/data/provider/Artist_api_provider.dart';
+import 'package:sq_mp3/data/provider/Genres_api_provider.dart';
 import 'package:sq_mp3/data/provider/Playlist_api_provider.dart';
 import 'package:sq_mp3/data/provider/Song_api_provider.dart';
 import 'package:sq_mp3/data/provider/User_api_provider.dart';
@@ -14,6 +16,8 @@ class AdminBinding extends Bindings
     Get.lazyPut(() => SongApiProvider(),);
     Get.lazyPut(() => PlaylistProvider(),);
     Get.lazyPut(() => AlbumApiProvider(),);
+    Get.lazyPut(() => ArtistApiProvider(),);
+    Get.lazyPut(() => GenresApiProvider(),);
   }
 
 }

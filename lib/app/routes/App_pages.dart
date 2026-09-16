@@ -6,6 +6,9 @@ import 'package:sq_mp3/modules/admin/view/Home_admin.dart';
 import 'package:sq_mp3/modules/admin/view/PlaylistManage_view.dart';
 import 'package:sq_mp3/modules/admin/view/SongManage_view.dart';
 import 'package:sq_mp3/modules/admin/view/UserManage_view.dart';
+import 'package:sq_mp3/modules/admin/widget/AlbumManagement_widget/CreateAlbum_dialog.dart';
+import 'package:sq_mp3/modules/admin/widget/PlaylistManagement_widget/CreatePlaylist_dialog.dart';
+import 'package:sq_mp3/modules/admin/widget/SongManagement_widget/CreateSong_dialog.dart';
 import 'package:sq_mp3/modules/admin/widget/UserManagement_widget/Create_user.dart';
 import 'package:sq_mp3/modules/favorite/binding/Favorite_binding.dart';
 import 'package:sq_mp3/modules/favorite/view/Favorite_view.dart';
@@ -183,6 +186,24 @@ class AppPages {
     GetPage(
       name: Routes.albumManagement,
       page: () => const AlbumManageView(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.createSongFromAdminPage,
+      page: () => const CreateSongDialog(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.createAlbumFromAdminPage,
+      page: () => const CreateAlbumDialog(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.createPlaylistFromAdminPage,
+      page: () => const CreatePlaylistDialog(),
       binding: AdminBinding(),
     ),
   ];

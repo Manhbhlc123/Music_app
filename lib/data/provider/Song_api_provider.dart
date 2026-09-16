@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:sq_mp3/core/network/api_client.dart';
 import 'package:sq_mp3/core/services/Token_service.dart';
+import 'package:sq_mp3/data/createRequest/SongCreate_request.dart';
 import 'package:sq_mp3/data/model/BaseUrlApi_model.dart';
 import 'package:sq_mp3/data/model/Song_item_model.dart';
 
@@ -86,37 +87,31 @@ class SongApiProvider {
     }
   }
 
-  Future<int> getSongCount(String token) async
-  {
+  Future<int> getSongCount(String token) async {
     final url = Uri.parse("$baseUrl/songs/count");
-    final response = await api.get(url, {
-      "Authorization": "Bearer $token",
-    }).timeout(Duration(seconds: 5));
+    final response = await api
+        .get(url, {"Authorization": "Bearer $token"})
+        .timeout(Duration(seconds: 5));
 
-    if(response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return json['result'] as int;
-    }
-    else {
+    } else {
       throw Exception("Failed to load song count");
     }
   }
 
-  Future<SongItemModel> updateSong(SongItemModel data, String token) async
-  {
-
+  Future<SongItemModel> updateSong(SongItemModel data, String token) async {
     final url = Uri.parse("$baseUrl/songs/${data.id}");
 
     print("👉 CHỐT 2 - DỮ LIỆU GỬI LÊN SERVER: ${jsonEncode(data.toJson())}");
 
-    final response = await api.patch(
-        url,
-        {
+    final response = await api
+        .patch(url, {
           "Authorization": "Bearer $token",
           "Content-Type": "application/json",
-        }, jsonEncode(data.toJson())
-    ).timeout(Duration(seconds: 5));
+        }, jsonEncode(data.toJson()))
+        .timeout(Duration(seconds: 5));
 
     print("UPDATE USER RESPONSE:");
     print(response.body);
@@ -128,20 +123,35 @@ class SongApiProvider {
     }
   }
 
-  Future<List<SongItemModel>> getAllSong(String token) async
-  {
+  Future<List<SongItemModel>> getAllSong(String token) async {
     final url = Uri.parse("$baseUrl/songs");
-    final response = await api.get(url, {
-      "Authorization": "Bearer $token",
-    }).timeout(Duration(seconds: 5));
+    final response = await api
+        .get(url, {"Authorization": "Bearer $token"})
+        .timeout(Duration(seconds: 5));
 
-    if(response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      return (json['result'] as List).map((e) => SongItemModel.fromJson(e)).toList();
-    }
-    else {
+      return (json['result'] as List)
+          .map((e) => SongItemModel.fromJson(e))
+          .toList();
+    } else {
       throw Exception("Failed to load song count");
+    }
+  }
+
+  Future<SongItemModel> createSong(String token, SongCreateRequest request) async {
+    final url = Uri.parse("$baseUrl/songs/create");
+    final response = await api
+        .post(url, {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        }, jsonEncode(request.toJson()))
+        .timeout(Duration(seconds: 5));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final json = jsonDecode(response.body);
+      return SongItemModel.fromJson(json['result']);
+    } else {
+      throw Exception("tạo bài hát không thành công");
     }
   }
 }

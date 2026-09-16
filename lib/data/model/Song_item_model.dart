@@ -5,6 +5,8 @@ class SongItemModel {
   final String audioUrlHq;
   final String artistId;
   final String artistName;
+  final String albumId;
+  final String genreId;
   final String lyricsPlain;
   final String coverUrl;
   final int playCount;
@@ -17,6 +19,8 @@ class SongItemModel {
     required this.audioUrlHq,
     required this.artistId,
     required this.artistName,
+    required this.albumId,
+    required this.genreId,
     required this.lyricsPlain,
     required this.coverUrl,
     required this.playCount,
@@ -31,6 +35,8 @@ class SongItemModel {
       audioUrlHq: json['audioUrlHq'] as String,
       artistId: json['artistId'] as String,
       artistName: json['artistName'] as String,
+      albumId: json['albumId'] as String,
+      genreId: json['genreId'] as String,
       lyricsPlain: json['lyricsPlain'] as String,
       coverUrl: json['coverUrl'] as String,
       duration: json['duration'] as int,
@@ -45,6 +51,8 @@ class SongItemModel {
         'audioUrlHq': audioUrlHq,
         'artistId': artistId,
         'artistName': artistName,
+        'albumId': albumId,
+        'genreId': genreId,
         'lyricsPlain': lyricsPlain,
         'coverUrl': coverUrl,
         'duration': duration,
@@ -58,6 +66,8 @@ class SongItemModel {
     String? audioUrlHq,
     String? artistId,
     String? artistName,
+    String? albumId,
+    String? genreId,
     String? lyricsPlain,
     String? coverUrl,
     int? playCount,
@@ -70,6 +80,8 @@ class SongItemModel {
       audioUrlHq: audioUrlHq ?? this.audioUrlHq,
       artistId: artistId ?? this.artistId,
       artistName: artistName ?? this.artistName,
+      albumId: albumId ?? this.albumId,
+      genreId: genreId ?? this.genreId,
       lyricsPlain: lyricsPlain ?? this.lyricsPlain,
       coverUrl: coverUrl ?? this.coverUrl,
       playCount: playCount ?? this.playCount,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:sq_mp3/core/network/api_client.dart';
+import 'package:sq_mp3/data/createRequest/PlaylistCreate_request.dart';
 import 'package:sq_mp3/data/model/BaseUrlApi_model.dart';
 import 'package:sq_mp3/data/model/Playlist_model.dart';
 import 'package:sq_mp3/data/model/Song_item_model.dart';
@@ -7,6 +8,29 @@ import 'package:sq_mp3/data/model/Song_item_model.dart';
 class PlaylistProvider {
   final String baseUrl = BaseUrlApiModel().baseUrl;
   final api = ApiClient();
+
+  //func get all playlist
+  Future<List<PlaylistModel>> getAllPlaylist(String token) async {
+    try {
+      final url = Uri.parse("$baseUrl/playlists");
+      final response = await api
+          .get(url, {
+            "Authorization": "Bearer $token",
+            "Content-Type": 'application/json',
+          })
+          .timeout(Duration(seconds: 5));
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        return (json["result"] as List)
+            .map((e) => PlaylistModel.fromJson(e))
+            .toList();
+      } else {
+        throw Exception("Failed to get playlists: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 
   //func getPlaylist home
   Future<List<PlaylistModel>> getPlaylistHome(String token) async {
@@ -142,20 +166,64 @@ class PlaylistProvider {
     }
   }
 
-  Future<int> getPlaylistCount(String token) async
-  {
+  Future<int> getPlaylistCount(String token) async {
     final url = Uri.parse("$baseUrl/playlists/count");
-    final response = await api.get(url, {
-      "Authorization": "Bearer $token",
-    }).timeout(Duration(seconds: 5));
+    final response = await api
+        .get(url, {"Authorization": "Bearer $token"})
+        .timeout(Duration(seconds: 5));
 
-    if(response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return json['result'] as int;
-    }
-    else {
+    } else {
       throw Exception("Failed to load playlist count");
+    }
+  }
+
+  //func update playlist
+  Future<PlaylistModel> updatePlaylist(String token, PlaylistModel playlist) async
+  {
+    try {
+      final url = Uri.parse("$baseUrl/playlists/${playlist.id}");
+
+      final response = await api
+          .put(url, {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      }, jsonEncode(playlist))
+          .timeout(Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+
+        return PlaylistModel.fromJson(json['result']);
+      } else {
+        throw Exception("Can't update playlist: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  //func create new playlist by admin
+  Future<PlaylistModel> createPlaylist(String token, PlaylistCreateRequest request) async
+  {
+    try {
+      final url = Uri.parse("$baseUrl/playlists/createByAdmin");
+      final response = await api
+          .post(url, {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      }, jsonEncode(request.toJson()))
+          .timeout(Duration(seconds: 5));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final json = jsonDecode(response.body);
+        return PlaylistModel.fromJson(json['result']);
+      } else {
+        throw Exception("tạo playlist không thành công");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

@@ -6,9 +6,7 @@ import 'package:sq_mp3/modules/admin/controller/Admin_controller.dart';
 class HomeAdmin extends GetView<AdminController> {
   const HomeAdmin({super.key});
 
-  // ==============================
   // Hiển thị panel bên phải
-  // ==============================
   void showRightPanel(BuildContext context) {
     showGeneralDialog(
       context: context,
@@ -88,10 +86,26 @@ class HomeAdmin extends GetView<AdminController> {
                   ),
 
                   ListTile(
-                    leading: const Icon(Icons.category),
+                    leading: const Icon(Icons.playlist_add_check_sharp),
                     title: const Text("Quản lý thể loại"),
                     onTap: () {
                       Get.toNamed(Routes.playlistManagement);
+                    },
+                  ),
+
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text("Quản lý nghệ sĩ"),
+                    onTap: (){
+                      // Get
+                    },
+                  ),
+
+                  ListTile(
+                    leading: const Icon(Icons.category),
+                    title: const Text("Quản lý nghệ sĩ"),
+                    onTap: (){
+                      // Get
                     },
                   ),
                 ],

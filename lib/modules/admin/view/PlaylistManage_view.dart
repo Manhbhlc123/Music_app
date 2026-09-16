@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:sq_mp3/app/routes/App_routes.dart';
 import 'package:sq_mp3/modules/admin/controller/Admin_controller.dart';
+import 'package:sq_mp3/modules/admin/widget/PlaylistManagement_widget/Playlist_section.dart';
 
 class PlaylistManageView extends GetView<AdminController> {
   const PlaylistManageView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'PLaylist Management',
+          'Playlist Management',
           style: TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.createPlaylistFromAdminPage);
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
-      // body: Obx(() => ListView.builder(
-      //   itemCount: controller.genres.length,
-      //   itemBuilder: (context, index) {
-      //     final genre = controller.genres[index];
-      //     return ListTile(
-      //       title: Text(genre.name),
-      //       trailing: IconButton(
-      //         icon: const Icon(Icons.delete),
-      //         onPressed: () => controller.deleteGenre(genre.id),
-      //       ),
-      //     );
-      //   },
-      // )),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => controller.addGenre(),
-      //   child: const Icon(Icons.add),
-      // ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return PlaylistSectionAdmin(
+          listPlaylist: controller.playlists,
+          onEdit: controller.updatePlaylist,
+          onRemove: controller.deletePlaylist,
+        );
+      }),
     );
   }
 }
