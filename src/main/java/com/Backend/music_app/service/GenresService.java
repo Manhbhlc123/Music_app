@@ -1,6 +1,7 @@
 package com.Backend.music_app.service;
 
 import com.Backend.music_app.dto.request.GenresCreateRequest;
+import com.Backend.music_app.dto.request.update.GenreUpdateRequest;
 import com.Backend.music_app.dto.response.GenresResponse;
 import com.Backend.music_app.dto.response.Item.GenresItemResponse;
 import com.Backend.music_app.entity.Genres;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +49,24 @@ public class GenresService {
                 .stream()
                 .map(genresMapper::toGenresResponse)
                 .toList();
+    }
+
+    @Transactional
+    @PreAuthorize("hasAuthority('Role_ADMIN')")
+    public GenresResponse updateGenres(UUID genreId, GenreUpdateRequest request) {
+        Genres genre = genresRepository.findById(genreId).orElseThrow(() -> new AppException(ErrorCode.GENRES_NOT_FOUND));
+
+        genresMapper.toUpdateGenre(genre, request);
+
+        return genresMapper.toGenresResponse(genresRepository.save(genre));
+    }
+
+    public Long getGenresCount() {
+        return genresRepository.count();
+    }
+
+    @Transactional
+    public void deleteGenres(UUID genreId) {
+        genresRepository.deleteById(genreId);
     }
 }

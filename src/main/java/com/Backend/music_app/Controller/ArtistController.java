@@ -46,9 +46,19 @@ public class ArtistController {
         return ApiResponse.<ArtistItemResponse>builder().code(200).result(artistService.getArtistById(artistId)).build();
     }
 
-    @PutMapping("/update/{artistId}")
+    @PutMapping("/{artistId}")
     ApiResponse<ArtistItemResponse> updateUser(@PathVariable UUID artistId, @RequestBody ArtistUpdateRequest request) {
         return ApiResponse.<ArtistItemResponse>builder().code(200).result(artistService.updateArtist(artistId, request)).build();
     }
 
+    @DeleteMapping("/{id}")
+    ApiResponse<String> deleteArtist(@PathVariable UUID artistId) {
+        artistService.deleteArtist(artistId);
+        return ApiResponse.<String>builder().code(200).message("Artist deleted").build();
+    }
+
+    @GetMapping("/count")
+    ApiResponse<Long> getArtistCount() {
+        return ApiResponse.<Long>builder().code(200).result(artistService.getArtistCount()).build();
+    }
 }

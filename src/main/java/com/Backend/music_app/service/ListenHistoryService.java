@@ -72,4 +72,14 @@ public class ListenHistoryService {
             throw new RuntimeException(e);
         }
     }
+
+    @Transactional
+    public void deleteAllSongOfHistoryListen(){
+        try {
+            listenHistoryRepository.deleteAll();
+        }catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }

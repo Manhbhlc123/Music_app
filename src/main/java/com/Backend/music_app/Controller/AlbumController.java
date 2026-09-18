@@ -59,4 +59,11 @@ public class AlbumController {
     {
         return ApiResponse.<Long>builder().code(200).result(albumService.albumCount()).build();
     }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteAlbum(@PathVariable UUID id)
+    {
+        albumService.deleteAlbum(id);
+        return ApiResponse.<Void>builder().code(201).message("Album successfully deleted.").build();
+    }
 }

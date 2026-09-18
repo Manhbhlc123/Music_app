@@ -3,6 +3,7 @@ package com.Backend.music_app.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,6 +48,9 @@ public class Album {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     LocalDateTime createdAt;
+
+    @Formula("(SELECT COUNT(*) FROM music_app.album_songs as al WHERE al.album_id = id)")
+    Integer totalSongs;
 
     // Tự động gán thời gian tạo
     @PrePersist

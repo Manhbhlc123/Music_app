@@ -23,24 +23,27 @@ public class ListenHistoryController {
     ListenHistoryService listenHistoryService;
 
     @GetMapping
-    public ApiResponse<List<ListenHistoryItemResponse>> getHistorySong()
-    {
+    public ApiResponse<List<ListenHistoryItemResponse>> getHistorySong() {
         return ApiResponse.<List<ListenHistoryItemResponse>>builder().code(200).result(listenHistoryService.getList()).build();
     }
 
     @PostMapping
-    public ApiResponse<ListenHistoryItemResponse> addListenHistory(@RequestBody ListenHistoryRequest request)
-    {
+    public ApiResponse<ListenHistoryItemResponse> addListenHistory(@RequestBody ListenHistoryRequest request) {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return ApiResponse.<ListenHistoryItemResponse>builder().code(201).result(listenHistoryService.createListenHistory(userName, request)).build();
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteListenHistory(@PathVariable("id") UUID id)
-    {
+    public ApiResponse<String> deleteListenHistory(@PathVariable("id") UUID id) {
         listenHistoryService.deleteSongOfHistoryListen(id);
         return ApiResponse.<String>builder().code(201).message("delete song in History listen successful").build();
     }
 
+    @DeleteMapping
+    public ApiResponse<String> deleteAllListenHistory()
+    {
+        listenHistoryService.deleteAllSongOfHistoryListen();
+        return ApiResponse.<String>builder().code(201).message("delete all song in History listen successful").build();
+    }
 }

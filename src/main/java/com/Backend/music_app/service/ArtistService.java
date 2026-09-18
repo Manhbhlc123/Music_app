@@ -111,4 +111,18 @@ public class ArtistService {
         return response;
     }
 
+
+    @Transactional
+    public void deleteArtist(UUID artistId)
+    {
+        try{
+            artistRepository.deleteById(artistId);
+        }catch (Exception e){
+            new RuntimeException(e.getMessage());
+        }
+    }
+
+    public long getArtistCount() {
+        return artistRepository.count();
+    }
 }

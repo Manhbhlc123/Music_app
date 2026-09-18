@@ -122,4 +122,13 @@ public class AlbumService {
     public long albumCount() {
         return albumRepository.count();
     }
+
+    @Transactional
+    public void deleteAlbum(UUID albumId) {
+        if (!albumRepository.existsById(albumId)) {
+            throw new AppException(ErrorCode.ALBUM_NOT_FOUND);
+        }
+        albumRepository.deleteById(albumId);
+    }
+
 }

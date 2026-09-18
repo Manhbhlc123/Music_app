@@ -22,9 +22,6 @@ public class ArtistUpdateRequest {
     @JsonProperty("country")
     String country;
 
-    @JsonProperty("searchKeywords")
-    String searchKeywords;
-
     @JsonProperty("verified")
     boolean verified;
 }
