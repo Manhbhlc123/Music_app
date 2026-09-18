@@ -89,4 +89,28 @@ class RecentSongApiProvider {
       throw Exception(e.toString());
     }
   }
+
+  Future<String> deleteAll(String token) async {
+    try {
+      final url = Uri.parse("$baseUrl/listenHistory");
+      final response = await api
+          .delete(url, {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          })
+          .timeout(Duration(seconds: 5));
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+
+        return json['message'];
+      } else {
+        throw Exception(
+          "Failed to delete all song in listen history. Status code: ${response.statusCode}",
+        );
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

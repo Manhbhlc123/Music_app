@@ -27,7 +27,7 @@ class Album extends GetView<LibraryController> {
               {
                 return Center(child: Text("No album yet"),);
               }
-            return AlbumSectionLibrary(albums: controller.albums, onRemove: controller.removeAlbum,);
+            return AlbumSectionLibrary(albums: controller.albums.toList(), onRemove: controller.removeAlbum,);
           }))
         ],
       ),

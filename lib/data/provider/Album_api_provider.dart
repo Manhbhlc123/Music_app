@@ -42,7 +42,6 @@ class AlbumApiProvider {
       final response = await api
           .get(url, {
             'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
           })
           .timeout(Duration(seconds: 5));
 
@@ -92,10 +91,9 @@ class AlbumApiProvider {
       final response = await api
           .delete(url, {
             'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
           }).timeout(Duration(seconds: 5));
 
-      if (response.statusCode != 200 && response.statusCode != 204) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception("Fail to remove album");
       } else {
         return "Album removed successfully";
@@ -146,6 +144,29 @@ class AlbumApiProvider {
       }
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  //add song to album
+  Future<String> addSongToAlbum(String token, String albumId, String songId) async
+  {
+    try{
+      final url = Uri.parse("$baseUrl/albums/${albumId}/songs/${songId}");
+      final response = await api.post(url, {
+        "Authorization": "Bearer $token",
+      }, null);
+
+      if(response.statusCode == 201 || response.statusCode == 200)
+        {
+          final json = jsonDecode(response.body);
+
+          return json['message'];
+        }else
+          {
+            throw Exception("Failed to add song to album");
+          }
+    }catch(e){
+        throw Exception(e.toString());
     }
   }
 }

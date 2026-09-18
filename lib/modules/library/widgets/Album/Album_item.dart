@@ -8,7 +8,7 @@ import 'package:sq_mp3/modules/library/controller/Library_controller.dart';
 
 class AlbumItem extends StatelessWidget {
   final AlbumModel albumModel;
-  final VoidCallback onRemove;
+  final Function(String albumId) onRemove;
 
   const AlbumItem({
     super.key,
@@ -63,9 +63,27 @@ class AlbumItem extends StatelessWidget {
         albumModel.title,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Artist', style: TextStyle(color: Colors.grey.shade400)),
+      subtitle: Text(
+        "${albumModel.totalSongs} bài hát",
+        style: TextStyle(color: Colors.grey.shade400),
+      ),
 
-      trailing: IconButton(onPressed: onRemove, icon: Icon(Icons.remove)),
+      trailing: IconButton(
+        onPressed: () {
+          Get.defaultDialog(
+            title: "Xác nhận",
+            middleText: "Bạn có chắc chắn muốn xóa album này không?",
+            textConfirm: "Xóa",
+            textCancel: "Hủy",
+            confirmTextColor: Colors.white,
+            onConfirm: () {
+              onRemove(albumModel.id);
+              Get.back();
+            },
+          );
+        },
+        icon: const Icon(Icons.remove_circle_outline, color: Colors.redAccent),
+      ),
     );
   }
 }

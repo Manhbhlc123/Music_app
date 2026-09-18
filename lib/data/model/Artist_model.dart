@@ -5,6 +5,8 @@ class ArtistModel {
   final String id;
   final String name;
   final String avatarUrl;
+  final String bio;
+  final String country;
   final bool verify;
   final int followerCount;
   final List<SongItemModel> topSongs;
@@ -14,6 +16,8 @@ class ArtistModel {
     required this.id,
     required this.name,
     required this.avatarUrl,
+    required this.bio,
+    required this.country,
     required this.verify,
     required this.followerCount,
     required this.topSongs,
@@ -25,6 +29,8 @@ class ArtistModel {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       avatarUrl: json['avatarUrl'] ?? '',
+      bio: json['bio'] ?? '',
+      country: json['country'] ?? '',
       verify: json['verified'] as bool? ?? false,
       followerCount: json['followerCount'] as int,
       topSongs: (json['topSongs'] as List? ?? [])
@@ -41,6 +47,8 @@ class ArtistModel {
       'id': id,
       'name': name,
       'avatarUrl': avatarUrl,
+      'bio': bio,
+      'country': country,
       'verified': verify,
       'followerCount': followerCount,
       'topSongs': topSongs.map((e) => e.toJson()).toList(),
@@ -52,6 +60,8 @@ class ArtistModel {
     String? id,
     String? name,
     String? avatarUrl,
+    String? bio,
+    String? country,
     bool? verify,
     int? follower,
     List<SongItemModel>? topSongs,
@@ -61,6 +71,8 @@ class ArtistModel {
       id: id ?? this.id,
       name: name ?? this.name,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      bio: bio ?? this.bio,
+      country: country ?? this.country,
       verify: verify ?? this.verify,
       followerCount: follower ?? this.followerCount,
       topSongs: topSongs ?? this.topSongs,

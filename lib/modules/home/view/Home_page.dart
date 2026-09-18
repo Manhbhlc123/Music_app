@@ -11,6 +11,7 @@ import 'package:sq_mp3/modules/home/widgets/Home_widget/Section_title.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,13 +76,21 @@ class HomePage extends GetView<HomeController> {
                     Obx(() {
                       return controller.recentSongs.isNotEmpty
                           ? Column(
-                              children: [
-                                const SizedBox(height: 30),
-                                const SectionTitle(title: "Nghe gần đây"),
-                                const SizedBox(height: 10),
-                                RecentSongSection(songs: controller.recentSongs.value),
-                              ],
-                            )
+                        children: [
+                          const SizedBox(height: 30),
+                          Row(mainAxisSize: MainAxisSize.max, children: [
+                            SectionTitle(title: "Nghe gần đây"),
+                            SizedBox(width: 210,),
+                            IconButton(onPressed: () {
+                              controller.deleteAllSongInHistory();
+                            },
+                                icon: Icon(Icons.delete, color: Colors.red,))
+                          ],),
+                          const SizedBox(height: 10),
+                          RecentSongSection(
+                              songs: controller.recentSongs.value),
+                        ],
+                      )
                           : const SizedBox.shrink();
                     }),
                     const SizedBox(height: 20),

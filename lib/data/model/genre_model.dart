@@ -4,7 +4,12 @@ class GenresModel {
   String description;
   String coverUrl;
 
-  GenresModel({required this.id, required this.name, required this.description, required this.coverUrl});
+  GenresModel({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.coverUrl,
+  });
 
   factory GenresModel.fromJson(Map<String, dynamic> json) {
     return GenresModel(
@@ -16,6 +21,25 @@ class GenresModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'description': description, 'coverUrl': coverUrl};
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'coverUrl': coverUrl,
+    };
+  }
+
+  GenresModel copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? coverUrl,
+  }) {
+    return GenresModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      coverUrl: coverUrl ?? this.coverUrl,
+    );
   }
 }

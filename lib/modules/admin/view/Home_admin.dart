@@ -87,7 +87,7 @@ class HomeAdmin extends GetView<AdminController> {
 
                   ListTile(
                     leading: const Icon(Icons.playlist_add_check_sharp),
-                    title: const Text("Quản lý thể loại"),
+                    title: const Text("Quản lý Playlist"),
                     onTap: () {
                       Get.toNamed(Routes.playlistManagement);
                     },
@@ -97,15 +97,15 @@ class HomeAdmin extends GetView<AdminController> {
                     leading: const Icon(Icons.person),
                     title: const Text("Quản lý nghệ sĩ"),
                     onTap: (){
-                      // Get
+                      Get.toNamed(Routes.artistManagement);
                     },
                   ),
 
                   ListTile(
                     leading: const Icon(Icons.category),
-                    title: const Text("Quản lý nghệ sĩ"),
+                    title: const Text("Quản lý thể loại"),
                     onTap: (){
-                      // Get
+                      Get.toNamed(Routes.genreManagement);
                     },
                   ),
                 ],
@@ -183,6 +183,20 @@ class HomeAdmin extends GetView<AdminController> {
                       count: controller.playlistCount.value.toString(),
                       icon: Icons.category,
                       color: Colors.green,
+                    ),
+                    _buildStatCard(
+                      context,
+                      title: "Nghệ sĩ",
+                      count: controller.artistCount.value.toString(),
+                      icon: Icons.person,
+                      color: Colors.red,
+                    ),
+                    _buildStatCard(
+                      context,
+                      title: "Thể loại",
+                      count: controller.genreCount.value.toString(),
+                      icon: Icons.category,
+                      color: Colors.teal,
                     ),
                   ],
                 ),

@@ -121,4 +121,23 @@ class HomeController extends GetxController {
       throw Exception(e.toString());
     }
   }
+
+  Future<void> deleteAllSongInHistory() async {
+    try {
+      final token = await tokenService.getToken();
+      if (token == null) {
+        Get.snackbar("Lỗi", "bạn chưa đăng nhập!");
+        return;
+      }
+      final result = await recentSongApiProvider.deleteAll(token);
+
+      if (result.isNotEmpty) {
+        recentSongs.clear();
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+
 }

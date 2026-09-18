@@ -2,11 +2,15 @@ import 'package:get/get.dart';
 import 'package:sq_mp3/app/routes/App_routes.dart';
 import 'package:sq_mp3/modules/admin/binding/Admin_binding.dart';
 import 'package:sq_mp3/modules/admin/view/AlbumManage_view.dart';
+import 'package:sq_mp3/modules/admin/view/ArtistManage_view.dart';
+import 'package:sq_mp3/modules/admin/view/GenreManage_view.dart';
 import 'package:sq_mp3/modules/admin/view/Home_admin.dart';
 import 'package:sq_mp3/modules/admin/view/PlaylistManage_view.dart';
 import 'package:sq_mp3/modules/admin/view/SongManage_view.dart';
 import 'package:sq_mp3/modules/admin/view/UserManage_view.dart';
 import 'package:sq_mp3/modules/admin/widget/AlbumManagement_widget/CreateAlbum_dialog.dart';
+import 'package:sq_mp3/modules/admin/widget/ArtistManagement_widget/CreateArtist_dialog.dart';
+import 'package:sq_mp3/modules/admin/widget/GenreManagement_widget/CreateGenre_dialog.dart';
 import 'package:sq_mp3/modules/admin/widget/PlaylistManagement_widget/CreatePlaylist_dialog.dart';
 import 'package:sq_mp3/modules/admin/widget/SongManagement_widget/CreateSong_dialog.dart';
 import 'package:sq_mp3/modules/admin/widget/UserManagement_widget/Create_user.dart';
@@ -190,6 +194,18 @@ class AppPages {
     ),
 
     GetPage(
+      name: Routes.artistManagement,
+      page: () => const ArtistManageView(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.genreManagement,
+      page: () => const GenreManageView(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
       name: Routes.createSongFromAdminPage,
       page: () => const CreateSongDialog(),
       binding: AdminBinding(),
@@ -204,6 +220,18 @@ class AppPages {
     GetPage(
       name: Routes.createPlaylistFromAdminPage,
       page: () => const CreatePlaylistDialog(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.createArtistFromAdminPage,
+      page: () => const CreateArtistDialog(),
+      binding: AdminBinding(),
+    ),
+
+    GetPage(
+      name: Routes.createGenreFromAdminPage,
+      page: () => const CreateGenreDialog(),
       binding: AdminBinding(),
     ),
   ];

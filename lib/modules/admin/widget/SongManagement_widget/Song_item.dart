@@ -19,6 +19,7 @@ class SongItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {},
       leading: CircleAvatar(
         backgroundImage: song.coverUrl.isNotEmpty
             ? NetworkImage(song.coverUrl)

@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sq_mp3/data/model/Album_model.dart';
+import 'package:sq_mp3/modules/home/controller/AlbumController.dart';
 
-import 'package:sq_mp3/data/model/Playlist_model.dart';
 import 'package:sq_mp3/modules/home/controller/PlaylistController.dart';
 
-class AddToPlaylistDialog {
-  static final playlistController = Get.find<PlaylistController>();
+class AddToAlbumDialog {
+  static final albumController = Get.find<AlbumController>();
 
   static void show({
     required String songId,
-    required List<PlaylistModel> playlists,
+    required List<AlbumModel> albums,
   }) {
-    String? selectedPlaylistId;
-    print("OPEN PLAYLIST DIALOG");
+    String? selectedAlbumId;
+    print("OPEN ALBUM DIALOG");
     Get.dialog(
       AlertDialog(
         title: const Text(
-          'Thêm vào playlist',
+          'Thêm vào album',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
 
         content: SizedBox(
           width: double.maxFinite,
-          child: playlists.isEmpty
+          child: albums.isEmpty
               ? const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Center(child: Text('Bạn chưa có playlist nào')),
+                  child: Center(child: Text('Bạn chưa có album nào')),
                 )
               : StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
@@ -33,22 +34,22 @@ class AddToPlaylistDialog {
                       constraints: const BoxConstraints(maxHeight: 400),
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: playlists.length,
+                        itemCount: albums.length,
                         itemBuilder: (context, index) {
-                          final playlist = playlists[index];
+                          final album= albums[index];
 
                           return RadioListTile<String>(
-                            value: playlist.id,
-                            groupValue: selectedPlaylistId,
+                            value: album.id,
+                            groupValue: selectedAlbumId,
 
                             onChanged: (value) {
                               setState(() {
-                                selectedPlaylistId = value;
+                                selectedAlbumId = value;
                               });
                             },
 
                             title: Text(
-                              playlist.title,
+                              album.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -57,7 +58,7 @@ class AddToPlaylistDialog {
                               borderRadius: BorderRadius.circular(6),
 
                               child: Image.network(
-                                playlist.coverUrl,
+                                album.cover,
                                 width: 45,
                                 height: 45,
                                 fit: BoxFit.cover,
@@ -92,17 +93,17 @@ class AddToPlaylistDialog {
           // THÊM
           ElevatedButton(
             onPressed: () async {
-              if (selectedPlaylistId == null) {
+              if (selectedAlbumId == null) {
                 Get.snackbar(
                   'Thông báo',
-                  'Vui lòng chọn một playlist',
+                  'Vui lòng chọn một album',
                 );
                 return;
               }
 
               final success =
-              await playlistController.addSongToPlaylist(
-                selectedPlaylistId!,
+              await albumController.addSongToAlbum(
+                selectedAlbumId!,
                 songId,
               );
 

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sq_mp3/modules/favorite/controller/Favorite_controller.dart';
 import 'package:sq_mp3/modules/home/binding/PlaylistDetail_controller.dart';
+import 'package:sq_mp3/modules/home/controller/AlbumController.dart';
 import 'package:sq_mp3/modules/home/controller/Home_controller.dart';
 import 'package:sq_mp3/modules/home/controller/PlaylistController.dart';
 import 'package:sq_mp3/modules/library/controller/Download_controller.dart';
@@ -23,5 +24,6 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => PlaylistDetailController(), fenix: true);
     Get.lazyPut(() => PlaylistController(), fenix: true);
     Get.lazyPut(() => DownloadController(), fenix: true);
+    Get.lazyPut(() => AlbumController(), fenix: true);
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sq_mp3/data/model/Album_model.dart';
-import 'package:sq_mp3/data/model/Song_item_model.dart';
 import 'package:get/get.dart';
+import 'package:sq_mp3/modules/admin/controller/Admin_controller.dart';
+import 'package:sq_mp3/modules/admin/widget/AlbumManagement_widget/AddSongToAlbum_dialog.dart';
 import 'package:sq_mp3/modules/admin/widget/AlbumManagement_widget/UpdateAlbum_dialog.dart';
-import 'package:sq_mp3/modules/admin/widget/SongManagement_widget/UpdateSong_dialog.dart';
 
 class AlbumItemAdmin extends StatelessWidget {
+  static final adminController = Get.find<AdminController>();
   final AlbumModel albumModel;
 
   final Function(AlbumModel)? onUpdate;
@@ -30,16 +31,27 @@ class AlbumItemAdmin extends StatelessWidget {
             : null,
       ),
       title: Text(albumModel.title),
+      subtitle: Text("${albumModel.totalSongs.toString()} bài hát", style: TextStyle(color: Colors.white60),),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
+            onPressed: () {
+              AddSongToAlbumDialog.show(
+                albumId: albumModel.id,
+                songs: adminController.songs.toList(),
+              );
+            },
+            icon: Icon(Icons.add),
+          ),
+
+          IconButton(
             onPressed: () async {
               final updateAlbum = await showDialog<AlbumModel>(
                 context: context,
                 builder: (context) {
-                  return UpdateAlbumDialog(albumModel: albumModel,);
+                  return UpdateAlbumDialog(albumModel: albumModel);
                 },
               );
               if (updateAlbum != null) {

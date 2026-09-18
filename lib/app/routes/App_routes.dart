@@ -22,10 +22,14 @@ abstract class Routes {
   static const songManagement = "/songManagement";
   static const albumManagement = "/albumManagement";
   static const playlistManagement = "/playlistManagement";
+  static const artistManagement = "/artistManagement";
+  static const genreManagement = "/genreManagement";
   static const createUserFromAdminPage = "/createUserByAdmin";
   static const createSongFromAdminPage = "/createSongByAdmin";
   static const createAlbumFromAdminPage = "/createAlbumByAdmin";
   static const createPlaylistFromAdminPage = "/createPlaylistByAdmin";
+  static const createArtistFromAdminPage = "/createArtistByAdmin";
+  static const createGenreFromAdminPage = "/createGenreByAdmin";
 }
 
 

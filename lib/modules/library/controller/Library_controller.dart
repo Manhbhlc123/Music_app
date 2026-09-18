@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart';
 import 'package:sq_mp3/core/services/Token_service.dart';
 import 'package:sq_mp3/data/model/Album_model.dart';
@@ -8,11 +7,8 @@ import 'package:sq_mp3/data/model/Playlist_model.dart';
 import 'package:sq_mp3/data/model/Song_item_model.dart';
 import 'package:sq_mp3/data/provider/Album_api_provider.dart';
 import 'package:sq_mp3/data/provider/Download_api_provider.dart';
-import 'package:sq_mp3/data/provider/Favorite_api_provider.dart';
 import 'package:sq_mp3/data/provider/Follow_api_provider.dart';
 import 'package:sq_mp3/data/provider/Playlist_api_provider.dart';
-import 'package:sq_mp3/data/provider/Song_api_provider.dart';
-import 'package:sq_mp3/modules/library/view/Album_view.dart';
 
 class LibraryController extends GetxController {
   final TokenService tokenService = TokenService();
@@ -26,7 +22,6 @@ class LibraryController extends GetxController {
   RxList<DownloadModel> downloads = <DownloadModel>[].obs;
   RxList<ArtistModel> followedArtist = <ArtistModel>[].obs;
   RxList<SongItemModel> songOfAlbum = <SongItemModel>[].obs;
-  // RxList<SongItemModel> songOfPlaylist = <SongItemModel>[].obs;
   RxInt remainingDownloads = 0.obs;
 
   Future<void> loadDownloadPage() async {
@@ -101,6 +96,7 @@ class LibraryController extends GetxController {
 
   Future<void> loadAlbumPage() async {
     try {
+      albums.clear();
       final token = await tokenService.getToken();
       if (token == null) {
         Get.snackbar("Lỗi", "Bạn chưa đăng nhập");
@@ -113,7 +109,23 @@ class LibraryController extends GetxController {
     }
   }
 
-  Future<void> removeAlbum() async {}
+  Future<void> removeAlbum(String albumId) async {
+    try {
+      final token = await tokenService.getToken();
+      if (token == null) {
+        Get.snackbar("Lỗi", "Bạn chưa đăng nhập");
+      } else {
+
+        final result = await albumApiProvider.removeAlbum(token, albumId);
+        if (result.isNotEmpty) {
+          albums.removeWhere((element) => element.id == albumId);
+          Get.snackbar("Thành công", "Đã xóa album khỏi thư viện");
+        }
+      }
+    } catch (e) {
+      Get.snackbar("Lỗi", e.toString());
+    }
+  }
 
   Future<void> loadPlaylistPage() async {
     try {
@@ -158,14 +170,13 @@ class LibraryController extends GetxController {
         Get.snackbar("Lỗi", "Bạn chưa đăng nhập");
       } else {
         final result = await playlistProvider.deletePlaylist(token, playlistId);
-        if (!result.isEmpty) {
+        if (result.isNotEmpty) {
           playlists.removeWhere((e) => e.id == playlistId);
-        } else {
-          return;
+          Get.snackbar("Thành công", "Đã xóa playlist khỏi thư viện");
         }
       }
     } catch (e) {
-      throw Exception(e.toString());
+      Get.snackbar("Lỗi", e.toString());
     }
   }
 

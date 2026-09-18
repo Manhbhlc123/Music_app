@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:sq_mp3/core/services/Token_service.dart';
 import 'package:sq_mp3/data/createRequest/AlbumCreate_request.dart';
+import 'package:sq_mp3/data/createRequest/ArtistCreate_request.dart';
+import 'package:sq_mp3/data/createRequest/GenreCreate_request.dart';
 import 'package:sq_mp3/data/createRequest/PlaylistCreate_request.dart';
 import 'package:sq_mp3/data/createRequest/SongCreate_request.dart';
 import 'package:sq_mp3/data/model/Album_model.dart';
@@ -29,6 +31,8 @@ class AdminController extends GetxController {
   var songCount = 0.obs;
   var playlistCount = 0.obs;
   var albumCount = 0.obs;
+  var artistCount = 0.obs;
+  var genreCount = 0.obs;
   var isLoading = false.obs;
 
   final RxList<UserModel> users = <UserModel>[].obs;
@@ -63,6 +67,12 @@ class AdminController extends GetxController {
 
       final album_count = await _albumApiProvider.getAlbumCount(token);
       albumCount.value = album_count;
+
+      final artist_count = await _artistApiProvider.getArtistCount(token);
+      artistCount.value = artist_count;
+
+      final genre_count = await _genreApiProvider.getGenreCount(token);
+      genreCount.value = genre_count;
 
       users.clear();
       final userList = await _userApiProvider.getAllUsers(token);
@@ -143,7 +153,6 @@ class AdminController extends GetxController {
     }
   }
 
-
   //song
   Future<void> deleteSong(String songId) async {
     try {
@@ -218,10 +227,8 @@ class AdminController extends GetxController {
     }
   }
 
-
   //album
-  Future<void> deleteAlbum(String albumId) async
-  {
+  Future<void> deleteAlbum(String albumId) async {
     try {
       isLoading.value = true;
       final token = await tokenService.getToken();
@@ -244,8 +251,7 @@ class AdminController extends GetxController {
     }
   }
 
-  Future<void> updateAlbum(AlbumModel album) async
-  {
+  Future<void> updateAlbum(AlbumModel album) async {
     try {
       isLoading.value = true;
 
@@ -274,8 +280,7 @@ class AdminController extends GetxController {
     }
   }
 
-  Future<void> createAlbum(AlbumCreateRequest request) async
-  {
+  Future<void> createAlbum(AlbumCreateRequest request) async {
     try {
       isLoading.value = true;
       final token = await tokenService.getToken();
@@ -297,8 +302,7 @@ class AdminController extends GetxController {
   }
 
   //playlist
-  Future<void> deletePlaylist(String playlistId) async
-  {
+  Future<void> deletePlaylist(String playlistId) async {
     try {
       isLoading.value = true;
       final token = await tokenService.getToken();
@@ -321,9 +325,7 @@ class AdminController extends GetxController {
     }
   }
 
-
-  Future<void> updatePlaylist(PlaylistModel playlist) async
-  {
+  Future<void> updatePlaylist(PlaylistModel playlist) async {
     try {
       isLoading.value = true;
 
@@ -352,8 +354,7 @@ class AdminController extends GetxController {
     }
   }
 
-  Future<void> createPlaylist(PlaylistCreateRequest request) async
-  {
+  Future<void> createPlaylist(PlaylistCreateRequest request) async {
     try {
       isLoading.value = true;
       final token = await tokenService.getToken();
@@ -365,6 +366,163 @@ class AdminController extends GetxController {
         Get.snackbar("Success", "Playlist created successfully");
         playlists.add(result);
         playlists.refresh();
+        fetchAdminData();
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  //artist
+  Future<void> deleteArtist(String artistId) async {
+    try {
+      isLoading.value = true;
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _artistApiProvider.deleteArtist(token, artistId);
+
+      if (result.isNotEmpty) {
+        Get.snackbar("Success", "Artist deleted successfully");
+        artists.removeWhere((artist) => artist.id == artistId);
+        fetchAdminData();
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> updateArtist(ArtistModel artist) async {
+    try {
+      isLoading.value = true;
+
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _artistApiProvider.updateArtist(token, artist);
+
+      if (result.id.isNotEmpty) {
+        Get.snackbar("Success", "Artist updated successfully");
+
+        final index = artists.indexWhere((a) => a.id == result.id);
+
+        if (index != -1) {
+          artists[index] = result;
+          artists.refresh();
+        }
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> createArtist(ArtistCreateRequest request) async {
+    try {
+      isLoading.value = true;
+
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _artistApiProvider.createArtist(token, request);
+
+      if (result.id.isNotEmpty) {
+        Get.snackbar("Success", "Artist created successfully");
+        artists.add(result);
+        artists.refresh();
+        fetchAdminData();
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  //genres
+  Future<void> updateGenre(GenresModel genre) async {
+    try {
+      isLoading.value = true;
+
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _genreApiProvider.updateGenre(token, genre);
+
+      if (result.id.isNotEmpty) {
+        Get.snackbar("Success", "genre updated successfully");
+
+        final index = genres.indexWhere((g) => g.id == result.id);
+
+        if (index != -1) {
+          genres[index] = result;
+          genres.refresh();
+        }
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> deleteGenre(String genreId) async {
+    try {
+      isLoading.value = true;
+
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _genreApiProvider.deleteGenre(token, genreId);
+
+      if (result.isNotEmpty) {
+        Get.snackbar("Success", "genre deleted successfully");
+        genres.removeWhere((g) => g.id == genreId);
+        fetchAdminData();
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> createGenre(GenreCreateRequest request) async {
+    try {
+      isLoading.value = true;
+
+      final token = await tokenService.getToken();
+
+      if (token == null) {
+        return;
+      }
+
+      final result = await _genreApiProvider.createGenre(token, request);
+
+      if (result.id.isNotEmpty) {
+        Get.snackbar("Success", "genre created successfully");
+        genres.add(result);
+        genres.refresh();
         fetchAdminData();
       }
     } catch (e) {

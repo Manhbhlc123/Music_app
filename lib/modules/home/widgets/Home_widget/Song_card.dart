@@ -7,6 +7,7 @@ import 'package:sq_mp3/data/model/Song_item_model.dart';
 import 'package:sq_mp3/data/provider/Download_api_provider.dart';
 import 'package:sq_mp3/modules/favorite/controller/Favorite_controller.dart';
 import 'package:sq_mp3/modules/home/controller/Home_controller.dart';
+import 'package:sq_mp3/modules/home/widgets/Home_widget/AlbumDialog.dart';
 import 'package:sq_mp3/modules/home/widgets/Home_widget/PlaylistDialog.dart';
 import 'package:sq_mp3/modules/library/controller/Download_controller.dart';
 import 'package:sq_mp3/modules/library/controller/Library_controller.dart';
@@ -90,6 +91,22 @@ class SongCard extends StatelessWidget {
                           );
                         },
                       ),
+
+                      ListTile(
+                        leading: const Icon(Icons.album),
+                        title: const Text("Add to album"),
+                        onTap: () async {
+                          Get.back();
+
+                          await libraryController.loadAlbumPage();
+
+                          AddToAlbumDialog.show(
+                            songId: songModel.id.toString(),
+                            albums: libraryController.albums.toList(),
+                          );
+                        },
+                      ),
+
                       Obx(() {
                         final isFavorite = favoriteController.isFavorite(
                           songModel.id,
