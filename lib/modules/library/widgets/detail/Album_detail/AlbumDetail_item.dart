@@ -66,8 +66,6 @@ class AlbumDetailItem extends StatelessWidget {
         songItemModel.artistName,
         style: TextStyle(color: Colors.grey.shade400),
       ),
-
-      trailing: IconButton(onPressed: () {}, icon: Icon(Icons.remove)),
     );
   }
 }

@@ -7,6 +7,7 @@ abstract class Routes {
   static const favorite = "/favorite";
   static const detailProfile = "/profile-detail";
   static const profile = "/profile";
+  static const setting = "/setting";
   static const download = "/download";
   static const playlist = "/playlist";
   static const playerView = "/playerView";

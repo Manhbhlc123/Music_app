@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sq_mp3/app/routes/App_routes.dart';
 import 'package:sq_mp3/modules/favorite/controller/Favorite_controller.dart';
+import 'package:sq_mp3/modules/player/controller/Player_controller.dart';
 
 class FavoriteView extends GetView<FavoriteController> {
   const FavoriteView({super.key});
@@ -24,13 +26,6 @@ class FavoriteView extends GetView<FavoriteController> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
-
-                const Spacer(),
-
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert),
                 ),
 
                 const SizedBox(width: 8),
@@ -101,7 +96,10 @@ class FavoriteView extends GetView<FavoriteController> {
                     ),
 
                     onTap: () {
-                      // TODO: phát bài hát
+                      final playerController = Get.find<PlayerController>();
+
+                      playerController.playSong(item);
+                      Get.toNamed(Routes.playerView);
                     },
                   );
                 },

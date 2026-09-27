@@ -3,7 +3,7 @@
     <application
         android:label="sq_mp3"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/img_app">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -7,10 +7,7 @@ import 'package:sq_mp3/modules/home/controller/AlbumController.dart';
 import 'package:sq_mp3/modules/home/controller/PlaylistController.dart';
 
 class AddSongToAlbumDialog {
-  final String albumId;
   static final albumController = Get.find<AlbumController>();
-
-  const AddSongToAlbumDialog({required this.albumId});
 
   static void show({
     required String albumId,

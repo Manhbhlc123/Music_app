@@ -40,6 +40,8 @@ import 'package:sq_mp3/modules/profile/view/Profile_view.dart';
 import 'package:sq_mp3/modules/search/Binding/Search_binding.dart';
 import 'package:sq_mp3/modules/search/views/Search_result_page.dart';
 import 'package:sq_mp3/modules/search/views/Search_view.dart';
+import 'package:sq_mp3/modules/setting/binding/Setting_binding.dart';
+import 'package:sq_mp3/modules/setting/view/SettingHome_view.dart';
 
 class AppPages {
   static const INITIAL = Routes.login;
@@ -233,6 +235,13 @@ class AppPages {
       name: Routes.createGenreFromAdminPage,
       page: () => const CreateGenreDialog(),
       binding: AdminBinding(),
+    ),
+
+    //Setting binding
+    GetPage(
+      name: Routes.setting,
+      page: () => const SettingHomeView(),
+      binding: SettingBinding(),
     ),
   ];
 }

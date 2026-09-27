@@ -19,24 +19,19 @@ class ProfileView extends GetView<ProfileController> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.setting);
+              },
               icon: const Icon(Icons.settings),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-            ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           ],
         ),
 
         body: SingleChildScrollView(
           child: Column(
             children: [
-
               Obx(() {
                 if (controller.isLoading.value) {
                   return const Padding(
@@ -54,11 +49,8 @@ class ProfileView extends GetView<ProfileController> {
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 25,
-                        backgroundImage:
-                        user!.avatar_url.isNotEmpty
-                            ? NetworkImage(
-                          user.avatar_url,
-                        )
+                        backgroundImage: user!.avatar_url.isNotEmpty
+                            ? NetworkImage(user.avatar_url)
                             : null,
                         child: user.avatar_url.isEmpty
                             ? const Icon(Icons.person)
@@ -67,14 +59,10 @@ class ProfileView extends GetView<ProfileController> {
 
                       title: Text(
                         user.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
 
-                      subtitle: const Text(
-                        "Xem trang cá nhân",
-                      ),
+                      subtitle: const Text("Xem trang cá nhân"),
 
                       trailing: const Icon(
                         Icons.arrow_forward_ios_outlined,
@@ -94,13 +82,9 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 title: const Text(
                   "Nâng VIP",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: const Text(
-                  "Trải nghiệm âm nhạc không quảng cáo",
-                ),
+                subtitle: const Text("Trải nghiệm âm nhạc không quảng cáo"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_outlined,
                   size: 16,
@@ -131,7 +115,10 @@ class ProfileView extends GetView<ProfileController> {
                   foregroundColor: Colors.white,
                   minimumSize: const Size(200, 45),
                 ),
-                child: const Text("Đăng Xuất"),
+                child: const Text(
+                  "Đăng Xuất",
+                  style: TextStyle(fontFamily: "arial"),
+                ),
               ),
             ],
           ),

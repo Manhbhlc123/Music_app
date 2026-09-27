@@ -33,7 +33,7 @@ class PlayerMiniBar extends GetView<PlayerController> {
                 top: BorderSide(color: Colors.grey.shade800),
               )
           ),
-          child: Stack(
+          child: Row(
                 children: [
                   //cover
                   ClipRRect(
@@ -71,7 +71,7 @@ class PlayerMiniBar extends GetView<PlayerController> {
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             song.title,

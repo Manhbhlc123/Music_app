@@ -6,10 +6,7 @@ import 'package:get/get.dart';
 import 'package:sq_mp3/modules/home/controller/PlaylistController.dart';
 
 class AddSongToPlaylistDialog {
-  final String playlistId;
   static final playlistController = Get.find<PlaylistController>();
-
-  const AddSongToPlaylistDialog({required this.playlistId});
 
   static void show({
     required String playlistId,

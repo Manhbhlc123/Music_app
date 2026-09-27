@@ -57,6 +57,7 @@ class HomeView extends GetView<HomeController> {
               currentIndex: controller.currentindex.value,
               onTap: (index) => controller.currentindex.value = index,
               type: BottomNavigationBarType.fixed,
+
             ),
           ),
         ],
