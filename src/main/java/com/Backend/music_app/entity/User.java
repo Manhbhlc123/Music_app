@@ -73,6 +73,9 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     LocalDateTime updatedAt;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    UserSetting userSetting;
+
     // Tự động gán thời gian tạo/cập nhật trước khi lưu vào DB
     @PrePersist
     protected void onCreate() {
